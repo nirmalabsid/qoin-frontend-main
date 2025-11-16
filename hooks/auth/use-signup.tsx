@@ -19,7 +19,11 @@ export const schema = yup.object({
     .required("Password wajib diisi"),
 });
 
-const useSignup = () => {
+interface UseSignupProps {
+  onSuccessCallback?: () => void;
+}
+
+const useSignup = ({ onSuccessCallback }: UseSignupProps = {}) => {
   const signupRequest = async (values: SignupValues) => {
     const response = await axiosInstance.post("/api/auth/signup", values);
     return response.data;
@@ -31,7 +35,10 @@ const useSignup = () => {
       return toast.error("Gagal melakukan signup");
     },
     onSuccess: () => {
-      return toast.success("Signup berhasil! Silahkan login.");
+      toast.success("Signup berhasil! Silahkan login.");
+      if (onSuccessCallback) {
+        onSuccessCallback();
+      }
     },
   });
 
