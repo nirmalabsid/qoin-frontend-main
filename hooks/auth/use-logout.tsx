@@ -3,11 +3,9 @@
 import axiosInstance from "@/lib/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 const useLogout = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
 
   const { mutate, isPending } = useMutation({
     mutationFn: async () => {
@@ -18,16 +16,17 @@ const useLogout = () => {
       // Clear all queries
       queryClient.clear();
 
-      // Clear localStorage
+      // Clear localStorage including auth token
       if (typeof window !== "undefined") {
         localStorage.clear();
       }
 
       toast.success("Logout berhasil!");
 
-      // Redirect to home page
-      router.push("/");
-      router.refresh();
+      // Force full page reload to clear all state
+      if (typeof window !== "undefined") {
+        window.location.href = "/";
+      }
     },
     onError: () => {
       return toast.error("Logout gagal!");

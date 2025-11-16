@@ -22,12 +22,14 @@ interface ImageHeroContentProps {
   title?: string;
   description?: string;
   CTAText?: string;
+  onCTAClick?: () => void;
 }
 
 const ImageHeroContent = ({
   title = "Udah Cobain UMKM Viral Ini Belum? 👀",
   description = "Yuk kenalan sama para pelaku UMKM yang lagi jadi favorit netizen.",
   CTAText = "Eksplor Yuk",
+  onCTAClick,
 }: ImageHeroContentProps) => (
   <div className="px-4 md:px-6 lg:px-[41px] py-6 md:py-8 lg:pb-[29px] lg:pt-0 z-1000">
     <h1 className="font-extrabold text-3xl md:text-4xl lg:text-[50px] text-white leading-tight mb-3 md:mb-4 lg:mb-5">
@@ -36,7 +38,10 @@ const ImageHeroContent = ({
     <p className="text-sm md:text-xl lg:text-2xl text-white leading-relaxed mb-4 md:mb-5 lg:mb-6">
       {description}
     </p>
-    <Button className="px-5 md:px-6 lg:px-[26px] py-5 md:py-5 lg:py-6 gap-2.5 flex items-center group hover:shadow-[0_4px_15px_rgba(233,167,0,0.5)] bg-[#FFF2D9] border border-[#FF6800] hover:bg-[#FFD6A7] shadow-[2px_4px_10px_rgba(233,109,0,0.4)] overflow-hidden text-primary">
+    <Button
+      onClick={onCTAClick}
+      className="px-5 md:px-6 lg:px-[26px] py-5 md:py-5 lg:py-6 gap-2.5 flex items-center group hover:shadow-[0_4px_15px_rgba(233,167,0,0.5)] bg-[#FFF2D9] border border-[#FF6800] hover:bg-[#FFD6A7] shadow-[2px_4px_10px_rgba(233,109,0,0.4)] overflow-hidden text-primary"
+    >
       <div>
         <p className="text-lg md:text-xl lg:text-2xl">{CTAText}</p>
       </div>
@@ -130,6 +135,7 @@ const ImageHero = ({ isBlank, isExplore }: ImageHeroProps) => {
                     title="Cari Spot yang Vibes-nya Kamu Banget!"
                     description="Tiap tempat punya karakter. Spill, gaya nongkrong atau jajan kamu yang mana?"
                     CTAText="Eksplor Sekarang"
+                    onCTAClick={() => router.push("/explore")}
                   />
                 </div>
 
